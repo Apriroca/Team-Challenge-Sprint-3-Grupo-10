@@ -43,3 +43,29 @@ def colocar_barcos(tablero, lista_coord_ocupadas):
        tablero[x, y] = "B"
     print(tablero)
     return tablero
+
+
+
+# Función para mostrar el tablero
+
+
+# Función para disparar
+
+def disparar(tablero, x, y):
+    if tablero[x, y] == barco:
+        tablero[x, y] = impacto
+        print("Tocado")
+    elif tablero[x, y] == agua:
+        tablero[x, y] = fallo
+        print("Agua")
+    else:
+        print("Ya has disparado aquí")
+
+    return tablero
+
+
+
+# recibir disparo aleatorio
+
+
+
