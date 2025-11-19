@@ -1,57 +1,21 @@
-# ------------------------------------------
-# Funciones que usaremos en Hundir la flota
-# ------------------------------------------
-
-import numpy as np
-import variables
+# --------------------------------------------
+#  Funciones para el juego Hundir la flota
+# --------------------------------------------
 
 
-# 1. Función para generar las coordenadas de los barcos,
-# dado una lista de barcos que contenga dos parámetros, 
-# el primero la eslora, y el segundo la cantidad de barcos iguales.
-# Se tiene en cuenta que no se salga del tablero y que no pise otro barco
-def generar_barcos_aleatorio(barcos, dim_tablero):
+from variables import *
+from clase import *
 
-    lista_coord_ocupadas = []
-
-    for (eslora, cantidad) in barcos.values():
-        for i in range(cantidad):
-            x = np.random.randint(0, dim_tablero)
-            y = np.random.randint(0, dim_tablero-eslora)
-            
-            while [x, y] in lista_coord_ocupadas:
-                x = np.random.randint(0, dim_tablero)
-                y = np.random.randint(0, dim_tablero-eslora)
-
-            lista_coord_ocupadas.append([x, y])
-
-            for j in range(1,eslora):
-                yj = y+j
-                lista_coord_ocupadas.append([x, yj])
-
-            print("eslora", eslora, "cantidad", cantidad, lista_coord_ocupadas)
-
-    return lista_coord_ocupadas
-
-
-
-# 2. Esta función coloca los barcos en el tablero, 
+# Esta función coloca los barcos en el tablero, 
 # dada la lista de coordenadas ocupadas
 # y el tablero original
 def colocar_barcos(tablero, lista_coord_ocupadas):
     for [x, y] in lista_coord_ocupadas:
        tablero[x, y] = "B"
-    print(tablero)
     return tablero
 
-
-
-# Función para mostrar el tablero
-
-
-# Función para disparar
-
-def disparar(tablero, x, y):
+# Función para disparar el jugador
+def disparo_jugador(tablero, x, y):
     if tablero[x, y] == barco:
         tablero[x, y] = impacto
         print("Tocado")
@@ -60,12 +24,35 @@ def disparar(tablero, x, y):
         print("Agua")
     else:
         print("Ya has disparado aquí")
-
     return tablero
 
 
+# Función para disparar de forma aleatoria la máquina
+def disparo_maquina(tablero):
+    # esta función toma valores aleatorios de x e y
+    x = np.random.randint(0,9)
+    y = np.random.randint(0,9)
+    if tablero[x, y] == barco:
+        tablero[x, y] = impacto
+        print("Tocado")
+    elif tablero[x, y] == agua:
+        tablero[x, y] = fallo
+        print("Agua")
+    else:
+        print("Ya has disparado aquí")
+    return tablero
 
-# recibir disparo aleatorio
+# Función para mostrar el tablero de la máquina sin desvelar dónde están los barcos
+def mostrar_tablero_maquina_oculto(tablero):
+    tablero_oculto = tablero.copy()
+    tablero_oculto[tablero_oculto == barco] = desconocido
+    tablero_oculto[tablero_oculto == agua] = desconocido
+    return tablero_oculto
 
 
-
+# Función para saber quedan barcos
+def quedan_barcos(tablero):
+    for fila in tablero:
+        if "B" in fila:   # mientras quede al menos una parte de barco
+            return True
+    return False

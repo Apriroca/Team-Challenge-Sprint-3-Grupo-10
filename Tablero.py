@@ -4,7 +4,7 @@
 
 
 import numpy as np
-import variables
+from variables import *
 
 class Tablero:
     def __init__(self, id_jugador: str):
