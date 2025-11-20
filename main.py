@@ -11,9 +11,10 @@ from funciones import *
 print(mensaje)
 
 # 1. gereno tablero vacío
-t = tablero("Jugador")
+print("\n⚙️ Inicializando tableros...\n")
+t = Tablero("Jugador")
 tablero_jugador = t.tablero_barcos
-t_m = tablero("Máquina")
+t_m = Tablero("Máquina")
 tablero_maquina = t_m.tablero_barcos
 
 # 2. genero la lista de coordenadas de barcos
@@ -26,16 +27,16 @@ tablero_barcos_maquina = colocar_barcos(tablero_maquina, lista_coord_barcos_maqu
 
 # 4. muestro los tableros. para el jugador muestro el tablero tal cual
 # para la máquina, primero creo el tablero oculto y luego lo muestro
-print("Tablero jugador \n")
+print("📍 TU TABLERO \n")
 print(tablero_barcos_jugador)
 
 tablero_barcos_maquina_oculto = mostrar_tablero_maquina_oculto(tablero_barcos_maquina)
-print("\n Tablero máquina \n")
+print("\n 📍 TABLERO ENEMIGO: \n")
 print(tablero_barcos_maquina_oculto)
 
 # 5. Comienzan los turnos. Pedimos coordenadas hasta que sean válidas
 while True:
-    print("Te toca atacar")    
+    print("\n🎯 Te toca atacar")    
     
     # Turno del jugador
     while True:
@@ -45,14 +46,14 @@ while True:
             if 0 <= x <= 9 and 0 <= y <= 9:
                 break
             else:
-                print("Coordenadas fuera de rango. Intenta de nuevo.")
+                print("⚠️ Coordenadas fuera de rango. Intentalo de nuevo.")
         except ValueError:
-            print("Debes introducir números. Intenta de nuevo.")
+            print("⚠️ Debes introducir números enteros. Intentalo de nuevo.")
 
     # Disparo del jugador
     tablero_barcos_maquina = disparo_jugador(tablero_barcos_maquina, x, y)
     tablero_barcos_maquina_oculto = mostrar_tablero_maquina_oculto(tablero_barcos_maquina)
-    print("\n Tablero máquina \n")
+    print("\n 🤖 TABLERO MÁQUINA \n")
     print(tablero_barcos_maquina_oculto)
 
     # Comprobar si el jugador ha ganado
@@ -62,7 +63,7 @@ while True:
 
     # Disparo de la máquina
     tablero_barcos_jugador = disparo_maquina(tablero_barcos_jugador) 
-    print("Tablero jugador \n")
+    print("📍 TU TABLERO \n")
     print(tablero_barcos_jugador)
 
     # Comprobar si la máquina ha ganado

@@ -4,11 +4,8 @@
 
 
 from variables import *
-from clase import *
+import numpy as np
 
-# Esta función coloca los barcos en el tablero, 
-# dada la lista de coordenadas ocupadas
-# y el tablero original
 def colocar_barcos(tablero, lista_coord_ocupadas):
     for [x, y] in lista_coord_ocupadas:
        tablero[x, y] = "B"
@@ -18,12 +15,12 @@ def colocar_barcos(tablero, lista_coord_ocupadas):
 def disparo_jugador(tablero, x, y):
     if tablero[x, y] == barco:
         tablero[x, y] = impacto
-        print("Tocado")
+        print("💥¡Tocado!\n")
     elif tablero[x, y] == agua:
         tablero[x, y] = fallo
-        print("Agua")
+        print("💧 Agua\n")
     else:
-        print("Ya has disparado aquí")
+        print("⚠️ Ya has disparado aquí")
     return tablero
 
 
@@ -32,14 +29,15 @@ def disparo_maquina(tablero):
     # esta función toma valores aleatorios de x e y
     x = np.random.randint(0,9)
     y = np.random.randint(0,9)
+    print(f"🎯 La máquina dispara a: ({x}, {y})")
     if tablero[x, y] == barco:
         tablero[x, y] = impacto
-        print("Tocado")
+        print("💥¡Tocado!\n")
     elif tablero[x, y] == agua:
         tablero[x, y] = fallo
-        print("Agua")
+        print("💧 Agua\n")
     else:
-        print("Ya has disparado aquí")
+        print("⚠️ Ya has disparado aquí")
     return tablero
 
 # Función para mostrar el tablero de la máquina sin desvelar dónde están los barcos
